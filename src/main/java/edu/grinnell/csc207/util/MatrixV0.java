@@ -121,10 +121,10 @@ public class MatrixV0<T> implements Matrix<T> {
     for (int y = 0; y < this.height(); y++) {
       for (int x = 0; x < this.width(); x++) {
         if (y > row) {
-          tempContents[y][x] = this.contents[y][x];
+          tempContents[y + 1][x] = this.contents[y][x];
         } else {
 
-          tempContents[y + 1][x] = this.contents[y][x];
+          tempContents[y][x] = this.contents[y][x];
 
         }
       }
@@ -149,10 +149,10 @@ public class MatrixV0<T> implements Matrix<T> {
     for (int y = 0; y < this.height(); y++) {
       for (int x = 0; x < this.width(); x++) {
         if (y > row) {
-          tempContents[y][x] = this.contents[y][x];
+          tempContents[y + 1][x] = this.contents[y][x];
         } else {
 
-          tempContents[y + 1][x] = this.contents[y][x];
+          tempContents[y][x] = this.contents[y][x];
 
         }
       }
@@ -171,7 +171,22 @@ public class MatrixV0<T> implements Matrix<T> {
    * @throws IndexOutOfBoundsException If the column is negative or greater than the width.
    */
   public void insertCol(int col) {
-    // STUB
+
+    T[][] tempContents = (T[][]) Array.newInstance(Object.class, this.height(), this.width() + 1);
+
+    for (int y = 0; y < this.height(); y++) {
+      for (int x = 0; x < this.width(); x++) {
+        if (x > col) {
+          tempContents[y][x + 1] = this.contents[y][x];
+        } else {
+
+          tempContents[y][x] = this.contents[y][x];
+
+        }
+      }
+
+    }
+    this.contents = tempContents;
   } // insertCol(int)
 
   /**
