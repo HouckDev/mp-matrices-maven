@@ -1,5 +1,7 @@
 package edu.grinnell.csc207.util;
 
+import java.lang.reflect.Array;
+
 /**
  * An implementation of two-dimensional matrices.
  *
@@ -13,7 +15,7 @@ public class MatrixV0<T> implements Matrix<T> {
   // +--------+------------------------------------------------------
   // | Fields |
   // +--------+
-
+  T[][] contents;
   // +--------------+------------------------------------------------
   // | Constructors |
   // +--------------+
@@ -32,8 +34,15 @@ public class MatrixV0<T> implements Matrix<T> {
    * @throws NegativeArraySizeException
    *   If either the width or height are negative.
    */
+  @SuppressWarnings("unchecked")
   public MatrixV0(int width, int height, T def) {
-    // STUB
+    this.contents = (T[][])Array.newInstance(def.getClass(), width, height);
+    for (int x = 0; x < width; x++) {
+      for (int y = 0; y < height; y++) {
+        this.contents[y][x] = def;
+      }
+
+    }
   } // MatrixV0(int, int, T)
 
   /**
