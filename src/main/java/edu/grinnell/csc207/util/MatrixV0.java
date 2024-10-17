@@ -19,7 +19,6 @@ public class MatrixV0<T> implements Matrix<T> {
   // +--------------+------------------------------------------------
   // | Constructors |
   // +--------------+
-
   /**
    * Create a new matrix of the specified width and height with the
    * given value as the default.
@@ -36,7 +35,7 @@ public class MatrixV0<T> implements Matrix<T> {
    */
   @SuppressWarnings("unchecked")
   public MatrixV0(int width, int height, T def) {
-    this.contents = (T[][])Array.newInstance(def.getClass(), width, height);
+    this.contents = (T[][])Array.newInstance(Object.class, width, height);
     for (int x = 0; x < width; x++) {
       for (int y = 0; y < height; y++) {
         this.contents[y][x] = def;
@@ -79,7 +78,7 @@ public class MatrixV0<T> implements Matrix<T> {
    *   If either the row or column is out of reasonable bounds.
    */
   public T get(int row, int col) {
-    return null;        // STUB
+    return contents[row][col];
   } // get(int, int)
 
   /**
