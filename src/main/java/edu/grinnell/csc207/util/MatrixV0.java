@@ -16,6 +16,7 @@ public class MatrixV0<T> implements Matrix<T> {
   // | Fields |
   // +--------+
   T[][] contents;
+  int defaultWidth;
   // +--------------+------------------------------------------------
   // | Constructors |
   // +--------------+
@@ -35,6 +36,7 @@ public class MatrixV0<T> implements Matrix<T> {
    */
   @SuppressWarnings("unchecked")
   public MatrixV0(int width, int height, T def) {
+    defaultWidth = width;
     this.contents = (T[][])Array.newInstance(Object.class, width, height);
     for (int x = 0; x < width; x++) {
       for (int y = 0; y < height; y++) {
@@ -95,7 +97,7 @@ public class MatrixV0<T> implements Matrix<T> {
    *   If either the row or column is out of reasonable bounds.
    */
   public void set(int row, int col, T val) {
-    // STUB
+    contents[row][col] = val;
   } // set(int, int, T)
 
   /**
@@ -104,7 +106,7 @@ public class MatrixV0<T> implements Matrix<T> {
    * @return the number of rows.
    */
   public int height() {
-    return 5;   // STUB
+    return contents.length;
   } // height()
 
   /**
@@ -113,7 +115,11 @@ public class MatrixV0<T> implements Matrix<T> {
    * @return the number of columns.
    */
   public int width() {
-    return 3;   // STUB
+    if (contents.length > 0) {
+      return contents[0].length;
+    } else {
+      return this.defaultWidth;
+    }
   } // width()
 
   /**
