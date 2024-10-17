@@ -130,6 +130,7 @@ public class MatrixV0<T> implements Matrix<T> {
       }
 
     }
+    this.contents = tempContents;
   } // insertRow(int)
 
   /**
