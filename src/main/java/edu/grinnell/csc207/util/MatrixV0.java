@@ -142,6 +142,7 @@ public class MatrixV0<T> implements Matrix<T> {
    * @throws IndexOutOfBoundsException If the row is negative or greater than the height.
    * @throws ArraySizeException If the size of vals is not the same as the width of the matrix.
    */
+  @SuppressWarnings("unchecked")
   public void insertRow(int row, T[] vals) throws ArraySizeException {
     if (vals.length != this.width()) {throw new ArraySizeException();}
     T[][] tempContents = (T[][]) Array.newInstance(Object.class, this.height() + 1, this.width());
@@ -170,6 +171,7 @@ public class MatrixV0<T> implements Matrix<T> {
    *
    * @throws IndexOutOfBoundsException If the column is negative or greater than the width.
    */
+  @SuppressWarnings("unchecked")
   public void insertCol(int col) {
 
     T[][] tempContents = (T[][]) Array.newInstance(Object.class, this.height(), this.width() + 1);
@@ -198,8 +200,26 @@ public class MatrixV0<T> implements Matrix<T> {
    * @throws IndexOutOfBoundsException If the column is negative or greater than the width.
    * @throws ArraySizeException If the size of vals is not the same as the height of the matrix.
    */
+  @SuppressWarnings("unchecked")
   public void insertCol(int col, T[] vals) throws ArraySizeException {
-    // STUB
+    if (vals.length != this.width()) {throw new ArraySizeException();}
+    T[][] tempContents = (T[][]) Array.newInstance(Object.class, this.height(), this.width() + 1);
+
+    for (int y = 0; y < this.height(); y++) {
+      for (int x = 0; x < this.width(); x++) {
+        if (x > col) {
+          tempContents[y][x + 1] = this.contents[y][x];
+        } else {
+
+          tempContents[y][x] = this.contents[y][x];
+
+        }
+      }
+    }
+    for (int y = 0; y < this.height(); y++) {
+      tempContents[y][col] = vals[y];
+    }
+    this.contents = tempContents;
   } // insertCol(int, T[])
 
   /**
