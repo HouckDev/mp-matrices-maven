@@ -16,7 +16,7 @@ public class MatrixV0<T> implements Matrix<T> {
   // +--------+
   T[][] contents;
   int defaultWidth;
-
+  T defaultObject;
   // +--------------+------------------------------------------------
   // | Constructors |
   // +--------------+
@@ -31,11 +31,12 @@ public class MatrixV0<T> implements Matrix<T> {
    */
   @SuppressWarnings("unchecked")
   public MatrixV0(int width, int height, T def) {
-    defaultWidth = width;
+    this.defaultObject = def;
+    this.defaultWidth = width;
     this.contents = (T[][]) Array.newInstance(Object.class, height, width);
     for (int x = 0; x < width; x++) {
       for (int y = 0; y < height; y++) {
-        this.contents[y][x] = def;
+        this.contents[y][x] = this.defaultObject;
       }
 
     }
@@ -115,22 +116,14 @@ public class MatrixV0<T> implements Matrix<T> {
    */
   @SuppressWarnings("unchecked")
   public void insertRow(int row) {
-
-    T[][] tempContents = (T[][]) Array.newInstance(Object.class, this.height() + 1, this.width());
-
-    for (int y = 0; y < this.height(); y++) {
-      for (int x = 0; x < this.width(); x++) {
-        if (y >= row) {
-          tempContents[y + 1][x] = this.contents[y][x];
-        } else {
-
-          tempContents[y][x] = this.contents[y][x];
-
-        }
-      }
-
+    T[] vals = (T[]) Array.newInstance(Object.class,this.width()); 
+    for (int i = 0; i < vals.length; i++) {vals[i] = this.defaultObject;}
+    try {
+      this.insertRow(row, vals);
+    } catch (ArraySizeException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
     }
-    this.contents = tempContents;
   } // insertRow(int)
 
   /**
@@ -173,22 +166,14 @@ public class MatrixV0<T> implements Matrix<T> {
    */
   @SuppressWarnings("unchecked")
   public void insertCol(int col) {
-
-    T[][] tempContents = (T[][]) Array.newInstance(Object.class, this.height(), this.width() + 1);
-
-    for (int y = 0; y < this.height(); y++) {
-      for (int x = 0; x < this.width(); x++) {
-        if (x >= col) {
-          tempContents[y][x + 1] = this.contents[y][x];
-        } else {
-
-          tempContents[y][x] = this.contents[y][x];
-
-        }
-      }
-
+    T[] vals = (T[]) Array.newInstance(Object.class,this.height()); 
+    for (int i = 0; i < vals.length; i++) {vals[i] = this.defaultObject;}
+    try {
+      this.insertCol(col, vals);
+    } catch (ArraySizeException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
     }
-    this.contents = tempContents;
   } // insertCol(int)
 
   /**
@@ -202,7 +187,7 @@ public class MatrixV0<T> implements Matrix<T> {
    */
   @SuppressWarnings("unchecked")
   public void insertCol(int col, T[] vals) throws ArraySizeException {
-    if (vals.length != this.width()) {throw new ArraySizeException();}
+    if (vals.length != this.height()) {throw new ArraySizeException();}
     T[][] tempContents = (T[][]) Array.newInstance(Object.class, this.height(), this.width() + 1);
 
     for (int y = 0; y < this.height(); y++) {

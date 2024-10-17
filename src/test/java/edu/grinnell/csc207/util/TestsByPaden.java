@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author Paden Houck
  */
-class TestMatrix {
+class TestsByPaden {
     /**
      * Make sure that we can construct matrices.
      */
