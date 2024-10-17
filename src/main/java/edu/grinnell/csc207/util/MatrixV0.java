@@ -215,8 +215,26 @@ public class MatrixV0<T> implements Matrix<T> {
    * @throws IndexOutOfBoundsException If the row is negative or greater than or equal to the
    *         height.
    */
+  @SuppressWarnings("unchecked")
   public void deleteRow(int row) {
-    // STUB
+
+    T[][] tempContents = (T[][]) Array.newInstance(Object.class, this.height() - 1, this.width());
+
+    for (int y = 0; y < this.height(); y++) {
+      for (int x = 0; x < this.width(); x++) {
+        if (y == row) {
+          
+        } else if (y > row) {
+          tempContents[y - 1][x] = this.contents[y][x];
+        } else {
+
+          tempContents[y][x] = this.contents[y][x];
+
+        }
+      }
+
+    }
+    this.contents = tempContents;
   } // deleteRow(int)
 
   /**
@@ -235,7 +253,7 @@ public class MatrixV0<T> implements Matrix<T> {
     for (int y = 0; y < this.height(); y++) {
       for (int x = 0; x < this.width(); x++) {
         if (x == col) {
-
+          
         } else if (x > col) {
           tempContents[y][x - 1] = this.contents[y][x];
         } else {
