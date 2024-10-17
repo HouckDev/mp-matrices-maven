@@ -120,7 +120,7 @@ public class MatrixV0<T> implements Matrix<T> {
 
     for (int y = 0; y < this.height(); y++) {
       for (int x = 0; x < this.width(); x++) {
-        if (y > row) {
+        if (y >= row) {
           tempContents[y + 1][x] = this.contents[y][x];
         } else {
 
@@ -149,7 +149,7 @@ public class MatrixV0<T> implements Matrix<T> {
 
     for (int y = 0; y < this.height(); y++) {
       for (int x = 0; x < this.width(); x++) {
-        if (y > row) {
+        if (y >= row) {
           tempContents[y + 1][x] = this.contents[y][x];
         } else {
 
@@ -178,7 +178,7 @@ public class MatrixV0<T> implements Matrix<T> {
 
     for (int y = 0; y < this.height(); y++) {
       for (int x = 0; x < this.width(); x++) {
-        if (x > col) {
+        if (x >= col) {
           tempContents[y][x + 1] = this.contents[y][x];
         } else {
 
@@ -207,7 +207,7 @@ public class MatrixV0<T> implements Matrix<T> {
 
     for (int y = 0; y < this.height(); y++) {
       for (int x = 0; x < this.width(); x++) {
-        if (x > col) {
+        if (x >= col) {
           tempContents[y][x + 1] = this.contents[y][x];
         } else {
 
