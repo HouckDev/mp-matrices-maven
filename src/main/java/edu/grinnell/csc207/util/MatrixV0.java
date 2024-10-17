@@ -143,7 +143,24 @@ public class MatrixV0<T> implements Matrix<T> {
    * @throws ArraySizeException If the size of vals is not the same as the width of the matrix.
    */
   public void insertRow(int row, T[] vals) throws ArraySizeException {
-    // STUB
+    if (vals.length != this.width()) {throw new ArraySizeException();}
+    T[][] tempContents = (T[][]) Array.newInstance(Object.class, this.height() + 1, this.width());
+
+    for (int y = 0; y < this.height(); y++) {
+      for (int x = 0; x < this.width(); x++) {
+        if (y > row) {
+          tempContents[y][x] = this.contents[y][x];
+        } else {
+
+          tempContents[y + 1][x] = this.contents[y][x];
+
+        }
+      }
+    }
+    for (int x = 0; x < this.width(); x++) {
+      tempContents[row][x] = vals[x];
+    }
+    this.contents = tempContents;
   } // insertRow(int, T[])
 
   /**
