@@ -278,8 +278,24 @@ public class MatrixV0<T> implements Matrix<T> {
    *
    * @throw IndexOutOfBoundsException If the rows or columns are inappropriate.
    */
+  @SuppressWarnings("unchecked")
   public void fillRegion(int startRow, int startCol, int endRow, int endCol, T val) {
-    // STUB
+
+    T[][] tempContents = (T[][]) Array.newInstance(Object.class, this.height(), this.width());
+
+    for (int y = 0; y < this.height(); y++) {
+      for (int x = 0; x < this.width(); x++) {
+        if (x >= startCol && x < endCol && y >= startRow && y < endRow) {
+          tempContents[y][x] = val;
+        } else {
+
+          tempContents[y][x] = this.contents[y][x];
+
+        }
+      }
+
+    }
+    this.contents = tempContents;
   } // fillRegion(int, int, int, int, T)
 
   /**
