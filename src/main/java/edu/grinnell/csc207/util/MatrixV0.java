@@ -278,24 +278,17 @@ public class MatrixV0<T> implements Matrix<T> {
    *
    * @throw IndexOutOfBoundsException If the rows or columns are inappropriate.
    */
-  @SuppressWarnings("unchecked")
   public void fillRegion(int startRow, int startCol, int endRow, int endCol, T val) {
-
-    T[][] tempContents = (T[][]) Array.newInstance(Object.class, this.height(), this.width());
 
     for (int y = 0; y < this.height(); y++) {
       for (int x = 0; x < this.width(); x++) {
         if (x >= startCol && x < endCol && y >= startRow && y < endRow) {
-          tempContents[y][x] = val;
-        } else {
-
-          tempContents[y][x] = this.contents[y][x];
+          contents[y][x] = val;
 
         }
       }
 
     }
-    this.contents = tempContents;
   } // fillRegion(int, int, int, int, T)
 
   /**
@@ -313,7 +306,13 @@ public class MatrixV0<T> implements Matrix<T> {
    */
   public void fillLine(int startRow, int startCol, int deltaRow, int deltaCol, int endRow,
       int endCol, T val) {
-    // STUB
+    int lineX = startCol;
+    int lineY = startRow;
+    while (lineX < endCol && lineY < endRow) {
+      contents[lineY][lineX] = val;
+      lineX += deltaCol;
+      lineY += deltaRow;
+    }
   } // fillLine(int, int, int, int, int, int, T)
 
   /**
@@ -323,7 +322,14 @@ public class MatrixV0<T> implements Matrix<T> {
    * @return a copy of the matrix.
    */
   public Matrix clone() {
-    return this; // STUB
+    MatrixV0<T> temp = new MatrixV0<>(this.width(), this.height(),this.defaultObject);
+    for (int y = 0; y < this.height(); y++) {
+      for (int x = 0; x < this.width(); x++) {
+        temp.set(y, x, defaultObject);
+      }
+    }
+
+    return this;
   } // clone()
 
   /**
@@ -335,7 +341,16 @@ public class MatrixV0<T> implements Matrix<T> {
    *         false otherwise.
    */
   public boolean equals(Object other) {
-    return this == other; // STUB
+    if (!(other instanceof MatrixV0)) {return false;}
+    Matrix<T> cast = (MatrixV0<T>) other;
+    if (this.height() != cast.height()) {return false;}
+    if (this.width() != cast.width()) {return false;}
+    for (int y = 0; y < this.height(); y++) {
+      for (int x = 0; x < this.width(); x++) {
+        if (!get(y, x).equals(cast.get(y, x))) {return false;}
+      }
+    }
+    return true;
   } // equals(Object)
 
   /**
